@@ -1,1 +1,7 @@
 #!/usr/bin/env ruby
+
+bracken_lib_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
+$LOAD_PATH.unshift(bracken_lib_directory) unless $LOAD_PATH.include?(bracken_lib_directory)
+require 'bracken/application'
+
+Bracken::Application.execute!(*ARGV.dup)
