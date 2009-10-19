@@ -12,8 +12,8 @@ class WorkingDirectory
     @working_directory ||= Pathname.new(Dir.mktmpdir)
   end
 
-  def write_to_file(path, contents, mode='w')
-    working_directory.join(path).open(mode) { |file| file.write(contents) }
+  def write_to_file(path, contents)
+    working_directory.join(path).open('w') { |file| file.write(contents) }
   end
 
   def run(command)
