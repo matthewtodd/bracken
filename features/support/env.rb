@@ -1,14 +1,5 @@
 require 'tmpdir'
 
-# Even though I'm putting bracken's lib directory in the LOAD_PATH, it's only
-# for the sake of require 'bracken/platform', helpful for getting a full path
-# to the Bracken::BINARY I care about testing here. Otherwise, I think it's
-# awesome (since bracken is a command-line app) to avoid touching any of the
-# rest of the bracken code in these features.
-bracken_lib_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
-$LOAD_PATH.unshift(bracken_lib_directory) unless $LOAD_PATH.include?(bracken_lib_directory)
-require 'bracken/platform'
-
 class BrackenWorld
   def working_directory
     @working_directory ||= Dir.mktmpdir('bracken-features')
