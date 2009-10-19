@@ -13,7 +13,7 @@ class WorkingDirectory
   end
 
   def write_to_file(path, contents, mode='w')
-    working_directory.join(path).open('a') { |file| file.puts(contents) }
+    working_directory.join(path).open(mode) { |file| file.puts(contents) }
   end
 
   def run(command)
