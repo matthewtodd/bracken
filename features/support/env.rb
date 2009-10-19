@@ -1,58 +1,51 @@
+require 'open4'
+require 'pathname'
 require 'tmpdir'
 
-class BrackenWorld
-  def working_directory
-    @working_directory ||= Dir.mktmpdir('bracken-features')
+class WorkingDirectory
+  PROJECT_ROOT = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), '..', '..')))
+
+  attr_reader :working_directory
+  attr_reader :standard_out
+
+  def initialize
+    @working_directory ||= Pathname.new(Dir.mktmpdir)
   end
 
-  def create_file(path, contents)
-    write_to_file(path, contents, 'w')
+  def write_to_file(path, contents, mode='w')
+    working_directory.join(path).open(mode) { |file| file.write(contents) }
   end
 
-  def append_to_file(path, contents)
-    write_to_file(path, contents, 'a')
-  end
-
-  def run_bracken(options)
-    @pid = fork do
-      in_working_directory do
-        exec "#{Bracken::RUBY_BINARY} #{Bracken::BINARY} #{options} > #{output_path}"
-      end
+  def run(command)
+    Dir.chdir(working_directory) do
+      @pid, @standard_in, @standard_out, @standard_error = Open4.popen4(rejigger_the_path(command))
     end
   end
 
-  def expect_output(expected)
-    File.read(output_path).should == expected
-  end
-
-  def terminate_bracken_process
-    Process.kill(Signal.list['TERM'], @pid)
+  def terminate_last_run
+    Process.kill('TERM', @pid) if @pid
+    @pid            = nil
+    @standard_in    = nil
+    @standard_out   = nil
+    @standard_error = nil
   end
 
   private
 
-  def write_to_file(path, contents, mode)
-    in_working_directory { File.open(path, mode) { |file| file.write(contents) } }
-  end
-
-  def in_working_directory
-    Dir.chdir(working_directory) { yield }
-  end
-
-  def output_path
-    File.join(working_directory, 'BRACKEN_OUTPUT')
+  def rejigger_the_path(command)
+    "/usr/bin/env PATH='#{PROJECT_ROOT.join('bin')}:#{ENV['PATH']}' RUBYLIB='#{PROJECT_ROOT.join('lib')}' #{command}"
   end
 end
 
 World do
-  BrackenWorld.new
+  WorkingDirectory.new
 end
 
 Before do
-  FileUtils.rm_rf working_directory
-  FileUtils.mkdir working_directory
+  working_directory.mkpath
 end
 
 After do
-  terminate_bracken_process
+  terminate_last_run
+  working_directory.rmtree
 end

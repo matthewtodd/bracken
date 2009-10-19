@@ -17,7 +17,7 @@ Feature: Tail
       """
       Sep 30 13:12:08 frodo fetchmail[19159]: reading message bob@example.org@pop.example.org:1 of 1 (4697 octets) flushed
       """
-    Then I should see the following in the bracken output:
+    Then I should see the following on standard out:
       """
       2009-09-30 13:12 -- fetched message for bob@example.org
       """

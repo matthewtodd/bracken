@@ -1,15 +1,15 @@
 Given /^these are the contents of "([^\"]*)":$/ do |path, contents|
-  create_file(path, contents)
+  write_to_file(path, contents)
 end
 
-When /^I run bracken (.*)$/ do |options|
-  run_bracken(options)
+When /^I run (.*)$/ do |command|
+  run(command)
 end
 
 When /^another process writes the following lines to "([^\"]*)":$/ do |path, contents|
-  append_to_file(path, contents)
+  write_to_file(path, contents, 'a')
 end
 
-Then /^I should see the following in the bracken output:$/ do |expected|
-  expect_output(expected)
+Then /^I should see the following on standard out:$/ do |expected|
+  standard_out.read.should include(expected)
 end
