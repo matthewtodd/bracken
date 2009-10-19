@@ -1,4 +1,4 @@
-Feature: Tail
+Feature: Tailing
   In order to keep track of what's going on with the system
   As a system operator
   I want to simultaneously tail (and filter) a set of logfiles
