@@ -12,28 +12,26 @@ class WorkingDirectory
     @working_directory ||= Pathname.new(Dir.mktmpdir)
   end
 
-  def write_to_file(path, contents)
-    working_directory.join(path).open('w') { |file| file.write(contents) }
+  def write_to_file(path, contents, mode='w')
+    working_directory.join(path).open('a') { |file| file.puts(contents) }
   end
 
   def run(command)
     Dir.chdir(working_directory) do
-      @pid, @standard_in, @standard_out, @standard_error = Open4.popen4(rejigger_the_path(command))
+      @pid, _, @standard_out, _ = Open4.popen4(rejigger_the_path(command))
     end
   end
 
   def terminate_last_run
     Process.kill('TERM', @pid) if @pid
-    @pid            = nil
-    @standard_in    = nil
-    @standard_out   = nil
-    @standard_error = nil
+    @pid          = nil
+    @standard_out = nil
   end
 
   private
 
   def rejigger_the_path(command)
-    "/usr/bin/env PATH='#{PROJECT_ROOT.join('bin')}:#{ENV['PATH']}' RUBYLIB='#{PROJECT_ROOT.join('lib')}' #{command}"
+    "/usr/bin/env -i PATH='#{PROJECT_ROOT.join('bin')}:#{ENV['PATH']}' RUBYLIB='#{PROJECT_ROOT.join('lib')}' RUBYOPT=rubygems #{command}"
   end
 end
 

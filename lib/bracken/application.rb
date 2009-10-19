@@ -17,7 +17,7 @@ module Bracken
         streams = activity.first
 
         streams.each do |stream|
-          STDOUT.puts stream.event
+          STDOUT.puts stream.event.original
           STDOUT.flush
         end
       end
