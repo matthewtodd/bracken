@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+# Add our lib directory to the load path as necessary
+lib = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(lib) unless $:.include?(lib)
+
+# And fire off the application
+require 'bracken'
+Bracken::Application.execute(ARGV)
