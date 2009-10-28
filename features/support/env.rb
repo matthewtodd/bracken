@@ -12,8 +12,12 @@ class WorkingDirectory
     @working_directory ||= Pathname.new(Dir.mktmpdir)
   end
 
+  def rename_file(old_path, new_path)
+    file(old_path).rename(file(new_path))
+  end
+
   def write_to_file(path, contents, mode='w')
-    working_directory.join(path).open(mode) { |file| file.puts(contents) }
+    file(path).open(mode) { |file| file.puts(contents) }
   end
 
   def run(command)
@@ -29,6 +33,10 @@ class WorkingDirectory
   end
 
   private
+
+  def file(path)
+    working_directory.join(path)
+  end
 
   def rejigger_the_path(command)
     "/usr/bin/env -i PATH='#{PROJECT_ROOT.join('bin')}:#{ENV['PATH']}' RUBYLIB='#{PROJECT_ROOT.join('lib')}' RUBYOPT=rubygems #{command}"

@@ -6,6 +6,10 @@ When /^another process appends "([^\"]*)" to "([^\"]*)"$/ do |contents, path|
   write_to_file(path, contents, 'a')
 end
 
+When /^another process renames "([^\"]*)" to "([^\"]*)"$/ do |old_path, new_path|
+  rename_file(old_path, new_path)
+end
+
 When /^I run (.*)$/ do |command|
   run(command)
 end

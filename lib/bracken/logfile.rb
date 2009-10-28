@@ -14,7 +14,7 @@ module Bracken
 
     def stream
       @stream ||= begin
-        pid, _, out, _ = Open4.popen4("tail -f #{path}")
+        pid, _, out, _ = Open4.popen4("tail -F #{path}")
 
         out.extend(Stream)
         out.logfile = self

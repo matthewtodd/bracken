@@ -17,6 +17,21 @@ Feature: Tailing
     When another process appends "Line Two" to "syslog"
     Then I should see "Line Two" on standard out
 
+  Scenario: Tailing a file that gets rotated away
+    Given these are the contents of "config.rb":
+      """
+      file 'syslog'
+      """
+    And these are the contents of "syslog":
+      """
+      Line One
+      """
+    When I run bracken -c config.rb
+    Then I should see "Line One" on standard out
+    When another process renames "syslog" to "syslog.0"
+    And another process appends "Line Two" to "syslog"
+    Then I should see "Line Two" on standard out
+
   Scenario: Tailing and filtering an existing file
     Given these are the contents of "config.rb":
       """
