@@ -4,7 +4,7 @@ rescue LoadError
   abort 'Please `gem install shoe` to get started.'
 end
 
-Shoe.tie('bracken', '0.0.0', 'Bracken, at present, is a glorified logfile tailer.') do |spec|
+Shoe.tie('bracken', '0.1.0', 'Bracken, at present, is a glorified logfile tailer.') do |spec|
   spec.add_runtime_dependency 'open4'
 
   spec.add_development_dependency 'cucumber'
