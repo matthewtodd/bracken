@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bracken}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew Todd"]
@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.email = %q{matthew.todd@gmail.com}
   s.executables = ["bracken"]
   s.extra_rdoc_files = ["README.rdoc"]
-  s.files = ["Rakefile", "README.rdoc", "bin/bracken", "examples/console.rb", "features/step_definitions", "features/step_definitions/bracken_steps.rb", "features/support", "features/support/env.rb", "features/tailing.feature", "lib/bracken", "lib/bracken/application.rb", "lib/bracken/configuration", "lib/bracken/configuration/builder.rb", "lib/bracken/configuration/options.rb", "lib/bracken/configuration.rb", "lib/bracken/logfile", "lib/bracken/logfile/filter.rb", "lib/bracken/logfile/stream.rb", "lib/bracken/logfile.rb", "lib/bracken.rb", "test/configuration_builder_test.rb", "test/configuration_options_test.rb", "test/configuration_test.rb", "test/logfile_filter_test.rb", "test/logfile_test.rb", "test/test_helper.rb"]
-  s.rdoc_options = ["--main", "README.rdoc", "--title", "bracken-0.1.0", "--inline-source"]
+  s.files = ["Rakefile", "bracken.gemspec", "README.rdoc", "bin/bracken", "examples/console.rb", "examples/syslog.rb", "examples/system.rb", "features/step_definitions", "features/step_definitions/bracken_steps.rb", "features/support", "features/support/env.rb", "features/tailing.feature", "lib/bracken", "lib/bracken/application.rb", "lib/bracken/configuration", "lib/bracken/configuration/builder.rb", "lib/bracken/configuration/options.rb", "lib/bracken/configuration.rb", "lib/bracken/logfile", "lib/bracken/logfile/filter.rb", "lib/bracken/logfile/stream.rb", "lib/bracken/logfile.rb", "lib/bracken.rb", "test/configuration_builder_test.rb", "test/configuration_options_test.rb", "test/configuration_test.rb", "test/logfile_filter_test.rb", "test/logfile_test.rb", "test/test_helper.rb"]
+  s.rdoc_options = ["--main", "README.rdoc", "--title", "bracken-0.1.1", "--inline-source"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Bracken, at present, is a glorified logfile tailer.}
