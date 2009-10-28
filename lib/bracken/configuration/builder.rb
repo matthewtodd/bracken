@@ -23,7 +23,7 @@ module Bracken
       end
 
       def file(path, &block)
-        configuration.files << Logfile.new(path)
+        configuration.files << Logfile.new(path, configuration.options.number_of_lines)
 
         if block_given?
           instance_eval(&block)

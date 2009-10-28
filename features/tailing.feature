@@ -32,6 +32,19 @@ Feature: Tailing
     And another process appends "Line Two" to "syslog"
     Then I should see "Line Two" on standard out
 
+  Scenario: Tailing a file with a custom number of lines
+    Given these are the contents of "config.rb":
+      """
+      file 'syslog'
+      """
+    And these are the contents of "syslog":
+      """
+      Line One
+      Line Two
+      """
+    When I run bracken -c config.rb -n 1
+    Then I should see "Line Two" on standard out
+
   Scenario: Tailing and filtering an existing file
     Given these are the contents of "config.rb":
       """

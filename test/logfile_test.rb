@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class LogfileTest < Test::Unit::TestCase
   context '#stream' do
     setup do
-      @logfile = Logfile.new(__FILE__)
+      @logfile = Logfile.new(__FILE__, 5)
     end
 
     should 'return a selectable, killable IO object tailing the file' do
@@ -12,7 +12,7 @@ class LogfileTest < Test::Unit::TestCase
       stream = reads.first
 
       begin
-        stream.gets.should == File.readlines(__FILE__)[-10]
+        stream.gets.should == File.readlines(__FILE__)[-5]
       ensure
         stream.kill
       end
