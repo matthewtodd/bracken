@@ -22,4 +22,17 @@ class ConfigurationBuilderTest < Test::Unit::TestCase
       configuration.files.map { |file| file.path }.should == ['/foo/bar']
     end
   end
+
+  context '#on' do
+    should 'add a filter to the current file' do
+      configuration = Configuration.new
+
+      builder = Configuration::Builder.new(configuration)
+      builder.file('/foo/bar') do
+        on 'foo'
+      end
+
+      configuration.files.map { |file| file.filters }.should == [[Logfile::Filter.new('foo')]]
+    end
+  end
 end

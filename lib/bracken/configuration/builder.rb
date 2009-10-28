@@ -22,8 +22,16 @@ module Bracken
         end
       end
 
-      def file(path)
+      def file(path, &block)
         configuration.files << Logfile.new(path)
+
+        if block_given?
+          instance_eval(&block)
+        end
+      end
+
+      def on(*args)
+        configuration.files.last.filters << Logfile::Filter.new(*args)
       end
     end
 

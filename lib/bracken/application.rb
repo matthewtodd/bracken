@@ -17,8 +17,12 @@ module Bracken
         streams = activity.first
 
         streams.each do |stream|
-          STDOUT.puts stream.gets
-          STDOUT.flush
+          line = stream.filtered_gets
+
+          if line
+            STDOUT.puts line
+            STDOUT.flush
+          end
         end
       end
     end
