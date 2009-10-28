@@ -1,4 +1,3 @@
-require 'bracken/logfile/event'
 require 'open4'
 
 module Bracken
@@ -15,10 +14,6 @@ module Bracken
 
         class << out
           attr_accessor :pid
-
-          def event
-            Logfile::Event.new(gets)
-          end
 
           def kill
             Process.kill('TERM', pid)

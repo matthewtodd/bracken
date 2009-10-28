@@ -12,7 +12,7 @@ class LogfileTest < Test::Unit::TestCase
       stream = reads.first
 
       begin
-        stream.event.original.should == File.readlines(__FILE__)[-10]
+        stream.gets.should == File.readlines(__FILE__)[-10]
       ensure
         stream.kill
       end
