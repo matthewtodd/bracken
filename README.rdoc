@@ -1,3 +1,11 @@
 = Bracken
 
-Bracken is one of my favorite things! Let me tell you about it:
+Bracken, at present, is a glorified logfile tailer.
+
+== Behold
+
+For now, you're best off looking at the cucumber features.
+
+== Install
+
+ gem install bracken
